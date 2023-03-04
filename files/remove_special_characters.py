@@ -1,6 +1,6 @@
 ############################
 # Version: 1.0.1
-# @author me@mad4n7.com
+# @author contact@mad4n7.com
 ############################
 # TODO: validate multiples .(dots) in a string
 # TODO: if there is no /(slash) at the end of the line add
