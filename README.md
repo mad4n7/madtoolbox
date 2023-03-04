@@ -3,6 +3,7 @@ A bunch of separated functionalities for multiple purposes
 
 ## Requirements:
 . Python 3.8 and up
+. Java 8 and up
 
 
 # Files Structure
