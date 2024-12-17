@@ -3,13 +3,19 @@ import re
 import csv
 import os
 
+# How to use:
+# Download the PDF statement and save it all in a folder.
+# Remove all pages from the PDF, besides the one with the statement (transactions).
+# Run the script.
+# python bank_of_america_statement.py
+
 def read_pdf_file(file_path):
     with open(file_path, 'rb') as pdf_file:
         pdf_reader = PyPDF2.PdfReader(pdf_file)
         return ' '.join(page.extract_text() for page in pdf_reader.pages)
 
 def extract_transactions(text):
-    pattern = r'\d{2}/\d{2}\s+\d{2}/\d{2}\s+(.+?)\s+(?:\S+\s+){2}\d+\s+(\d+\.\d{2})'
+    pattern = r'\d{2}/\d{2}\s+\d{2}/\d{2}\s+(.+?)\s+(?:\S+\s+){2}\d+\s+([\d,]+\.\d{2})'
     return re.findall(pattern, text)
 
 def normalize_description(description):
@@ -20,7 +26,7 @@ def sum_transactions(transactions):
     transaction_sums = {}
     for description, amount in transactions:
         description = normalize_description(description)
-        amount = float(amount)
+        amount = float(amount.replace(',', ''))  # Remove comma before converting to float
         transaction_sums[description] = transaction_sums.get(description, 0) + amount
     return transaction_sums
 
